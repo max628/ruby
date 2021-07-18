@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sqft:</strong>
+  <%= @house.sqft %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @house.location %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @house.address %>
+</p>
+
+<p>
+  <strong>Style:</strong>
+  <%= @house.style %>
+</p>
+
+<p>
+  <strong>Floors:</strong>
+  <%= @house.floors %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @house.price %>
+</p>
+
+<p>
+  <strong>Basement:</strong>
+  <%= @house.basement %>
+</p>
+
+<% if (session[:id] == @house.user_id and session[:role] =='realtor') or session[:role]=='admin'%>
+  <%= link_to 'Edit', edit_house_path %><br><br>
+<% end %>
+<% if session[:role] =='househunter' or session[:role]=='admin'%>
+  <%= form_for @potentialbuyer do |form| %>  
+      <% if @added %>
+        <%= button_to 'Not Interested in Buying', @potentialbuyer, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% else %>
+        <%= form.hidden_field :user_id, :value=>session[:id] %>  
+        <%= form.hidden_field :house_id, :value=>@house.id %>
+        <%= form.submit 'Interested in Buying' %>
+      <% end%>
+  <% end %>
+  <% end %>
+<br>
+<%= link_to 'Back', houses_path %>

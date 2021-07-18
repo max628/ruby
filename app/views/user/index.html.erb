@@ -1,0 +1,29 @@
+<h1>List of Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email Id</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Contact Info</th>
+      <th>Preferred Contact</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.role %></td>
+        <td><%= user.contactinfo %></td>
+        <td><%= user.preferredcontact %></td>
+        <% if user.role != "admin"%>
+    		<td><%= button_to "Delete", destroy_user_path(user.id), :method => :delete, :confirm => "You sure?" %></td><br>
+  		<% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

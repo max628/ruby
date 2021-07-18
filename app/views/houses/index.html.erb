@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Houses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sqft</th>
+      <th>Location</th>
+      <th>Address</th>
+      <th>Style</th>
+      <th>Floors</th>
+      <th>Price</th>
+      <th>Basement</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @houses.each do |house| %>
+      <tr>
+        <td><%= house.sqft %></td>
+        <td><%= house.location %></td>
+        <td><%= house.address %></td>
+        <td><%= house.style %></td>
+        <td><%= house.floors %></td>
+        <td><%= house.price %></td>
+        <td><%= house.basement %></td>
+        <td><%= link_to 'Show', house %></td>
+        <% if ( session[:role]=='realtor' and session[:id] == house.user_id ) or session[:role] == "admin" %>
+          <td><%= link_to 'Edit', edit_house_path(house) %></td>
+          <td><%= button_to 'Delete', house, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if session[:role]=='househunter' or session[:role] == 'admin' %>
+            <td><%= link_to 'Submit Inquiry', new_inquirydetail_path(:id => house.id) %></td>
+        <% end %>
+        <% if session[:role]=='realtor' or session[:role] == 'admin' %>
+          <td><%= link_to 'View Potential Buyers', potentialbuyers_path(:house_id =>house.id) %></td>
+        <% end %>
+      </tr>
+    <%end %>
+
+  </tbody>
+</table>

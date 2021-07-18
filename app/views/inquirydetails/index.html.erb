@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Inquirydetails</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>Subject</th>
+      <th>House</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inquirydetails.each do |inquirydetail| %>
+      <tr>
+        <td><%= inquirydetail.content %></td>
+        <td><%= inquirydetail.subject %></td>
+        <td><%= inquirydetail.house_id %></td>
+        <td><%= link_to 'Show', inquirydetail %></td>
+        <% if ((session[:role]=="realtor"  && current_user.company_id == House.where(id: inquirydetail.house_id).pluck(:company_id).take(1).first.to_i) or session[:role]=="admin")%>
+          <td> <%= link_to 'Reply to Inquiry', new_inquiryreply_path(h_id:inquirydetail.house_id, inq_id:inquirydetail.id) %></td>
+        <%end%>
+
+        <% if (session[:role] == 'househunter' and session[:id] == inquirydetail.user_id ) or session[:role] ==  "admin" %>
+          <td><%= link_to 'Edit', edit_inquirydetail_path(inquirydetail) %></td>
+          <td><%= button_to 'Delete Inquiry', inquirydetail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% end %>
+      </tr>
+  </tbody>
+</table>

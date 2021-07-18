@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Inquiryreplies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reply</th>
+      <th>User</th>
+      <th>Inquirydetail</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inquiryreplies.each do |inquiryreply| %>
+      <tr>
+        <td><%= inquiryreply.reply %></td>
+        <td><%= inquiryreply.user_id %></td>
+        <td><%= inquiryreply.inquirydetail_id %></td>
+        <td><%= link_to 'Show', inquiryreply %></td>
+        <td><%= link_to 'Edit', edit_inquiryreply_path(inquiryreply) %></td>
+        <td><%= button_to 'Destroy', inquiryreply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

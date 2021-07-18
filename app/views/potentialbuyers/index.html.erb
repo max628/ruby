@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Potentialbuyers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Email ID</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @potential_users.each do |potential_user| %>
+      <tr>
+        <td><%= potential_user.first.name %></td>
+        <td><%= potential_user.first.email %></td>
+        <td><%= link_to 'Show', potentialbuyer_path(:id => potential_user.first.id) %>
+        <!--<td><%#= link_to 'Edit', edit_potentialbuyer_path(potentialbuyer) %></td>
+        <td><%#= link_to 'Destroy', potentialbuyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Potentialbuyer', new_potentialbuyer_path %>

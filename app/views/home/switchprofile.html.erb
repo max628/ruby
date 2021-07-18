@@ -1,0 +1,48 @@
+
+<h1>Welcome to House Renting Portal</h1>
+
+<% if current_user %>
+
+  <% if current_user.role=="realtor" or current_user.role=="admin" %>
+    <p> Welcome <%= current_user.name %> </p>
+    <% if current_user.role == "admin" %>
+      <%= link_to 'Create New Realtor or House Hunter', user_new_path  %><br><br>
+      <%= link_to 'View / Delete List of User Profiles',user_index_path %><br> <br>
+    <% end %>
+
+    <%= link_to 'Edit Profile', edit_user_registration_path %><br> <br>
+
+    <% if current_user.company_id == nil && current_user.role!= "admin" %>
+      <%= link_to 'Post a House', '#', :onclick => 'alert("Create a new company or select an existing company by editing profile to post a house.")' %> <br> <br>
+    <% else %>
+      <%= link_to 'Post a House', new_house_path(:id => current_user.company_id ) %><br> <br>
+    <% end %>
+
+    <%= link_to 'View all Houses', houses_path %> <br> <br>
+    <% if current_user.company_id==nil || (Company.exists?(current_user.company_id) && current_user.role!= "admin")  %>
+      <%= link_to 'Create Real Estate Company', '#', :onclick => 'alert("Already Created a Company")' %> <br> <br>
+    <% else %>
+      <%= link_to 'Create Real Estate Company', new_company_path %> <br> <br>
+    <% end %>
+
+    <%= link_to 'View all Real Estate Companies and Edit your Company', companies_path %> <br> <br>
+    <%= link_to 'View/Reply to Inquiries',inquirydetails_path %>
+  <% elsif current_user.role=='househunter' or current_user.role=="admin" %>
+    <p> Welcome <%= current_user.name %> </p>
+    <%= link_to 'Edit Profile', edit_user_registration_path %><br> <br>
+    <%= link_to 'View all houses', houses_path %><br> <br>
+    <%= link_to 'Search houses', househunter_search_path %><br><br>
+    <%= link_to 'View All Companies', companies_path %><br> <br>
+    <%= link_to 'View Inquiries',inquirydetails_path %>
+  <% end %><br><br>
+
+  <% if current_user.role != "admin" and User.group( :email ).where( :email => current_user.email).count[current_user.email] == 2 %>
+    <%= link_to 'Switch Profile', root_path  %><br><br>
+  <%  end %>
+
+  <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+
+<% else %>
+  <p> Please <%= link_to 'Login', new_user_session_path %>/
+    <%= link_to 'Signup', new_user_registration_path %> to continue.</p>
+<% end %>

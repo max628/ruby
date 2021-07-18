@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reply:</strong>
+  <%= @inquiryreply.reply %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @inquiryreply.user_id %>
+</p>
+
+<p>
+  <strong>Inquirydetail:</strong>
+  <%= @inquiryreply.inquirydetail_id %>
+</p>
+
+<%= link_to 'Edit', edit_inquiryreply_path(@inquiryreply) %> |
+<%= link_to 'Back', inquiryreplies_path %>

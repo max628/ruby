@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @inquirydetail.content %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @inquirydetail.subject %>
+</p>
+
+<p>
+  <strong>House:</strong>
+  <%= @inquirydetail.house_id %>
+</p>
+
+<% if session[:role] == 'househunter' or session[:role]=="admin" %>
+	<%= link_to 'Edit', edit_inquirydetail_path(@inquirydetail) %> |
+<% end %>
+<%= link_to 'Back', inquirydetails_path %>
